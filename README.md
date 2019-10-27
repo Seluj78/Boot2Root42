@@ -32,9 +32,9 @@ Tous les logiciels utilisés pour résoudre ce CTF, sont présents de base dans 
 
 | Logiciel | Lien |
 | ------ | ------ |
-| Kali Linux | [https://www.kali.org/][PlDb] |
-| Tmux | [https://github.com/tmux/tmux/wiki][PlGh] |
-| Cherry Tree | [https://www.giuspen.com/cherrytree/][PlGd] |
-| Nmap | [https://nmap.org/][PlOd] |
-| Dirbuster | [https://tools.kali.org/web-applications/dirbuster][PlMe] |
-| ncat| [https://nmap.org/ncat/][PlGa] |
+| Kali Linux | [https://www.kali.org/] |
+| Tmux | [https://github.com/tmux/tmux/wiki] |
+| Cherry Tree | [https://www.giuspen.com/cherrytree/] |
+| Nmap | [https://nmap.org/] |
+| Dirbuster | [https://tools.kali.org/web-applications/dirbuster] |
+| ncat| [https://nmap.org/ncat/] |
