@@ -19,10 +19,15 @@ On observe plusieurs ports ouverts, nous allons donc profiter de la puissance de
 $ nmap -p- -sS -sC -sV 192.168.42.101
 ```
 `-p-` : Scanner tout les 65535 ports de la machine.
+
 `-sS` : Effectuer un scan SYN complet.
+
 `-sC` : Executer les scripts par defaults.
+
 `-sV` : Enumerer les versions logiciels.
+
 `192.168.42.101` : notre cible.
+
 
 ![image](https://user-images.githubusercontent.com/29956389/89550647-2decfd00-d80a-11ea-869c-0a2cb4404599.png)
 
@@ -42,7 +47,7 @@ Et quelque chose de plutot intéréssant, le port 143 et 933, qui sont utilisé 
 
 ![imap](https://user-images.githubusercontent.com/29956389/67638232-7aea8d00-f8e2-11e9-9e77-ed7c2e52587f.png)
 
-### Web
+## Web
 On décide de se pencher sur les serveurs web en premier:
 
 ![website](https://user-images.githubusercontent.com/29956389/67638287-06641e00-f8e3-11e9-879e-c9b54556867c.png)
@@ -51,10 +56,8 @@ Rien de particulier sur les sites, les console, ou encore leurs code source. Pas
 
 ![robots443](https://user-images.githubusercontent.com/29956389/67638297-34e1f900-f8e3-11e9-9e4f-ed002cf2a0e2.png)
 
-### Dirbuster / Gobuster
+## Dirbuster / Gobuster
 Dirbuster est un outils qui va tester tous les nom de fichier/dossier présent dans une wordlist pour voir lesquels dentre eux réponde sur le server web spécifié.
-
-![dirb](https://user-images.githubusercontent.com/29956389/67638340-9904bd00-f8e3-11e9-8a86-e622396610e3.png)
 
 On utilisera ici dirbuster ainsi que gobuster en ligne de commande.
 Port 80:
