@@ -60,6 +60,7 @@ Rien de particulier sur les sites, les console, ou encore leurs code source. Pas
 Dirbuster est un outils qui va tester tous les nom de fichier/dossier présent dans une wordlist pour voir lesquels dentre eux réponde sur le server web spécifié.
 
 On utilisera ici dirbuster ainsi que gobuster en ligne de commande.
+
 Port 80:
 
 ![image](https://user-images.githubusercontent.com/29956389/89551504-4f9ab400-d80b-11ea-814b-582250696cb9.png)
@@ -108,50 +109,82 @@ On note l'adresse mail qui nous est montré ici et on va directement l'essayer s
 Cela marche a nouveau et on obtient apparement un login root pour la base de donnée:
 
 ![ft_root](https://user-images.githubusercontent.com/29956389/67638730-437edf00-f8e8-11e9-81de-9cee905b999e.png)
+
 # PhpMyAdmin
+
 On accede donc a phpMyAdmin, et on essaye de se connecter avec ces creedentials, et on arrive sur la page d'acceuil:
+
 ![image](https://user-images.githubusercontent.com/29956389/89552437-6d1c4d80-d80c-11ea-8e53-907324c24552.png)
-On y voit une base de donnée apellé forum_db, et en la selectionant, on peut y executer une commande SQL. Nous allons l'utiliser pour injecter un script. Reste plus qu'a savoir ou le placer.
+
+On y voit une base de donnée apellé forum_db, et en la selectionant, on peut y executer une commande SQL.
+
+Nous allons l'utiliser pour injecter un script. Reste plus qu'a savoir ou le placer.
+
 Apres plusieurs tentative, et de code retour 2 (permission denied) et 13 (no such file ?), on finis par le placer dans `/var/www/forum/templates_c/`
 
 
 ![image](https://user-images.githubusercontent.com/29956389/89553064-53c7d100-d80d-11ea-81e6-08df4657c2f2.png)
+
 Le script qui s'apelle `cmd.php` va nous présenter un champ de texte, dont le contenu sera executé avec la fonction `system` de php.
 
 ![image](https://user-images.githubusercontent.com/29956389/89553198-81147f00-d80d-11ea-9997-99fd65efaf49.png)
 
 On l'essaye directement avec la commande `id` :
+
 ![image](https://user-images.githubusercontent.com/29956389/89553356-b325e100-d80d-11ea-9e2b-4ec0b602e42b.png)
+
 Et on obtien un retour positif !
 On continue donc d'explorer le système :
+
 ![image](https://user-images.githubusercontent.com/29956389/89553518-e9fbf700-d80d-11ea-93f9-f7507dac4e49.png)
-Et on trouve ce dossier LOOKATME accésible au user `www-data`
-Dans lequel il y a un fichier `password`
+
+Et on trouve ce dossier LOOKATME accésible au user `www-data` dans lequel il y a un fichier `password`
+
 ![image](https://user-images.githubusercontent.com/29956389/89553650-157ee180-d80e-11ea-9b71-9d240991d74f.png)
+
 Qui contient très probablement un user et un password:
+
 ![image](https://user-images.githubusercontent.com/29956389/89553785-3fd09f00-d80e-11ea-9f41-1ae72910a10c.png)
+
 # FTP
+
 Apres quelques minutes de recherche, on arrive a se connecter sur le serveur ftp avec ces credentials:
+
 ![image](https://user-images.githubusercontent.com/29956389/89554223-dbfaa600-d80e-11ea-9c98-036943cfca15.png)
+
 Qui contient un fichier README, ainsi qu'un archive tar, apellé fun.
 On le récupère et on décompresse le fichier, ce qui nous laisse avec ~750 fichier avec l'extension .pcap.
 Ceci est un piège car l'utilitaire `file` nous dit qu'il s'agit uniquement de fichiers texte ASCII:
+
 ![image](https://user-images.githubusercontent.com/29956389/89554586-5a574800-d80f-11ea-8543-c88e8628ee70.png)
+
 ### Analyse des fichiers
+
 Un de ces fichiers sort du lot avec sa taille bien plus grande que les autres fichiers:
+
 ![image](https://user-images.githubusercontent.com/29956389/89554697-7bb83400-d80f-11ea-8a22-03d03e174615.png)
+
 On l'affiche, mais il est essentiellement remplis de fonction inutiles :
+
 ![image](https://user-images.githubusercontent.com/29956389/89554810-a4402e00-d80f-11ea-8a2f-75a6b06c2711.png)
+
 Sauf pour ce bout de code :
+
 ![image](https://user-images.githubusercontent.com/29956389/89554985-d18cdc00-d80f-11ea-93f2-07e000e16904.png)
+
 Il faut donc trouver ces fonctions parmis les fichier `.pcap` pour réassembler le mot de passe.
+
 ![image](https://user-images.githubusercontent.com/29956389/89555343-39432700-d810-11ea-86ed-dbc4cc001f63.png)
+
 On observe le commentaire `file5`. En combinant les informations obtenus auparavent, et avec un peu de logique, nous cherchons la suite de cette fonction, qui est probablement dans le fichier 6 soit `file6`.
 
 ![image](https://user-images.githubusercontent.com/29956389/89555697-a9ea4380-d810-11ea-8e16-67c4150d2cc3.png)
+
 La première lettre du mot de passe est donc `I`.
 On répète cette opération pour les onzes autres charactères recherché et on obtiens :
 `Iheartpwnage` que nous allons passer a `sha256sum` (précisé dans le README du ftp).
 Ce qui nous donne: `330b845f32185747e4f8ca15d40ca59796035c89ea809fb5d30f4da83ecf45a4`
 Et nous voila connecté sur le compte de laurie en ssh:
+
 ![image](https://user-images.githubusercontent.com/29956389/89556301-7360f880-d811-11ea-9c35-2549820dcaf7.png)
+
