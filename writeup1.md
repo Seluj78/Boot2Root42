@@ -12,6 +12,7 @@ On vérifie que la machine a compromettre est bien  192.168.42.101 , on lance to
 $ nmap 192.168.42.101
 ```
 ![image](https://user-images.githubusercontent.com/29956389/89550359-d058b080-d809-11ea-9ba3-df30def08aad.png)
+
 On observe plusieurs ports ouverts, nous allons donc profiter de la puissance de nmap pour obtenir plus de renseignement sur ces ports ouverts.
 
 ```
@@ -22,18 +23,23 @@ $ nmap -p- -sS -sC -sV 192.168.42.101
 `-sC` : Executer les scripts par defaults.
 `-sV` : Enumerer les versions logiciels.
 `192.168.42.101` : notre cible.
+
 ![image](https://user-images.githubusercontent.com/29956389/89550647-2decfd00-d80a-11ea-869c-0a2cb4404599.png)
 
 On observe que grace a l'execution des script par défault, qu'un acces anonyme au server FTP n'est pas possible, il nous faudra des credentials pour y acceder.
+
 ![ftp](https://user-images.githubusercontent.com/29956389/67638171-13ccd880-f8e2-11e9-8146-c490dc6c0017.png)
 
 On observe un serveur SSH 5.9:
+
 ![ssh](https://user-images.githubusercontent.com/29956389/67638195-319a3d80-f8e2-11e9-883a-dfa6be4935f3.png)
 
 Un ou deux serveur web sur le port 80 et 443, respectivement http et https, qui tourne sur apache 2.2.22:
+
 ![http](https://user-images.githubusercontent.com/29956389/67638205-4ecf0c00-f8e2-11e9-995e-6494030006ff.png)
 
 Et quelque chose de plutot intéréssant, le port 143 et 933, qui sont utilisé pour du traffic imap. (Mail):
+
 ![imap](https://user-images.githubusercontent.com/29956389/67638232-7aea8d00-f8e2-11e9-9e77-ed7c2e52587f.png)
 
 ### Web
@@ -49,12 +55,18 @@ Rien de particulier sur les sites, les console, ou encore leurs code source. Pas
 Dirbuster est un outils qui va tester tous les nom de fichier/dossier présent dans une wordlist pour voir lesquels dentre eux réponde sur le server web spécifié.
 
 ![dirb](https://user-images.githubusercontent.com/29956389/67638340-9904bd00-f8e3-11e9-8a86-e622396610e3.png)
+
 On utilisera ici dirbuster ainsi que gobuster en ligne de commande.
 Port 80:
+
 ![image](https://user-images.githubusercontent.com/29956389/89551504-4f9ab400-d80b-11ea-814b-582250696cb9.png)
+
 Port 443:
+
 ![image](https://user-images.githubusercontent.com/29956389/89551449-414c9800-d80b-11ea-978f-277ef2dd9153.png)
+
 Dirbuster nous donne quelque informations supplémentaires:
+
 ![image](https://user-images.githubusercontent.com/29956389/89551851-b750ff00-d80b-11ea-8f5b-3e1e25574c70.png)
 
 
@@ -62,7 +74,9 @@ Les chemins trouvé sur le port 80 nous renvois tous le code 403 (Forbidden).
 Par contre, en https on accède a `/forum/`qui se décline en `/forum/images/` `/forum/themes/` et `/forum/templates_c/`. Il y a aussi `/webmail/src/login.php` qui est probablement en lien avec les port 143 et 993, et a `/phpmyadmin/index.php`:
 
 ![forum](https://user-images.githubusercontent.com/29956389/67638449-c9009000-f8e4-11e9-89d5-f911da6cf733.png)
+
 ![mail](https://user-images.githubusercontent.com/29956389/67638451-ca31bd00-f8e4-11e9-8a92-c7dd56b4e8bf.png)
+
 ![phpmyadm](https://user-images.githubusercontent.com/29956389/67638678-a15ef700-f8e7-11e9-90cb-820d4cd7e48c.png)
 
 ## Recherche sur le forum
