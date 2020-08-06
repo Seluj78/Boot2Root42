@@ -183,8 +183,11 @@ On observe le commentaire `file5`. En combinant les informations obtenus auparav
 La première lettre du mot de passe est donc `I`.
 On répète cette opération pour les onzes autres charactères recherché et on obtiens :
 `Iheartpwnage` que nous allons passer a `sha256sum` (précisé dans le README du ftp).
+
 Ce qui nous donne: `330b845f32185747e4f8ca15d40ca59796035c89ea809fb5d30f4da83ecf45a4`
+
 Et nous voila connecté sur le compte de laurie en ssh:
 
 ![image](https://user-images.githubusercontent.com/29956389/89556301-7360f880-d811-11ea-9c35-2549820dcaf7.png)
 
+# SSH
