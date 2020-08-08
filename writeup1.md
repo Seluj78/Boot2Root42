@@ -308,3 +308,14 @@ C'est ainsi que nous avons obtenu le resultat "4 2 6 3 1 5".
 En concatenant tout les resultats, nous obtenons la string "Publicspeakingisveryeasy.126241207201b2149opekmq426315", qui est effectivement le mot de passe de thor.
 
 ![image](https://user-images.githubusercontent.com/25014717/89712686-b4cce180-d992-11ea-94c9-9c90fe3aa756.png)
+
+## Thor
+On observe deux fichiers: README et turtle.
+
+![image](https://user-images.githubusercontent.com/29956389/89712639-71727300-d992-11ea-888c-86c75a45b3f2.png)
+
+![image](https://user-images.githubusercontent.com/29956389/89712663-923ac880-d992-11ea-9e26-52cf050854f9.png)
+
+![image](https://user-images.githubusercontent.com/29956389/89712708-d201b000-d992-11ea-9915-a3afe27d5f57.png)
+
+![image](https://user-images.githubusercontent.com/29956389/89712711-d8902780-d992-11ea-9c5e-3ea6c4707c2d.png)
