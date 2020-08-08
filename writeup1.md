@@ -310,7 +310,7 @@ En concatenant tout les resultats, nous obtenons la string "Publicspeakingisvery
 ![image](https://user-images.githubusercontent.com/25014717/89712686-b4cce180-d992-11ea-94c9-9c90fe3aa756.png)
 
 ## Thor
-On observe deux fichiers: README et turtle, un fichier texte.
+On observe deux fichiers: README et turtle, deux fichier texte.
 
 ![image](https://user-images.githubusercontent.com/29956389/89712639-71727300-d992-11ea-888c-86c75a45b3f2.png)
 
@@ -318,7 +318,7 @@ En affichant le fichier turtle, on observe qu'il s'agit d'instructions de dépla
 
 ![image](https://user-images.githubusercontent.com/29956389/89712663-923ac880-d992-11ea-9e26-52cf050854f9.png)
 
-En effet, il s'agit d'instructions pour l'agorithme `Turtle graphics` pour python:
+En effet, il s'agit de pseudo-instructions pour l'algorithme `Turtle graphics` pour python:
 
 https://docs.python.org/3/library/turtle.html
 
@@ -328,11 +328,17 @@ Et on lance l'equivalent des instructions du fichier `turtle` dans le programme 
 
 ![image](https://user-images.githubusercontent.com/29956389/89712708-d201b000-d992-11ea-9915-a3afe27d5f57.png)
 
-Voila le resultat avec les instructions présenté ci-dessus.
+Voila le resultat avec les instructions présenté ci-dessus:
 
 ![image](https://user-images.githubusercontent.com/29956389/89712711-d8902780-d992-11ea-9c5e-3ea6c4707c2d.png)
 
+La lettre H.
+
 On effectue cette operation pour toutes les instructions listé, et on obtiens le mot `SLASH`.
 
-La question `Can you digest the message. :)` fait référence au Digest MD5. La fonction de hashage.
+La question `Can you digest the message? :)` fait référence au Digest MD5. La fonction de hashage.
+
 On lance alors `echo -n 'SLASH' | md5sum` ce qui nous donne `646da671ca01bb5d84dbb5fb2238dc8e`
+
+Et ca marche!
+![image](https://user-images.githubusercontent.com/29956389/89713164-4722b480-d996-11ea-8dec-edc9cd25c1e3.png)
