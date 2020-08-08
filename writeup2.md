@@ -9,7 +9,7 @@ Une fois connecté en ssh sur la machine avec le compte de laurie, on verifie la
 
 # DirtyCow
 
-La version 3.2.0 du noyau linux présente une vulnérabilité basé sur une une `race condition`, appelé `Dirty-CoW`.
+Les versions 2.6 jusqu'au versions 3.2 du noyau linux présentent une vulnérabilité basé sur une une `race condition`, appelé `Dirty-CoW`.
 Elle porte ce nom car cette faille est basé sur l'exploitation d'un Copy-On-Write(C-o-W).
 
 Elle permet de modifier n'importe quel fichier sur le système (/etc/shadow, binaires SUID, etc...) sans avoir besoin des droits néccésaire habituellement.
