@@ -309,7 +309,7 @@ En concatenant tout les resultats, nous obtenons la string "Publicspeakingisvery
 
 ![image](https://user-images.githubusercontent.com/25014717/89712686-b4cce180-d992-11ea-94c9-9c90fe3aa756.png)
 
-## Thor
+## SSH Thor
 On observe deux fichiers: README et turtle, deux fichier texte.
 
 ![image](https://user-images.githubusercontent.com/29956389/89712639-71727300-d992-11ea-888c-86c75a45b3f2.png)
@@ -343,3 +343,62 @@ On lance alors `echo -n 'SLASH' | md5sum` ce qui nous donne `646da671ca01bb5d84d
 Et ca marche!
 
 ![image](https://user-images.githubusercontent.com/29956389/89713164-4722b480-d996-11ea-8dec-edc9cd25c1e3.png)
+
+## SSH zaz
+
+Une fois l'acces ssh a zaz obtenu, nous recuperons les informations sur notre home, ou se trouve le binaire exploit_me et le dossier mail.
+
+![image](https://user-images.githubusercontent.com/25014717/89712999-d5963680-d994-11ea-8885-479369235e78.png)
+
+Le titre du binaire etant explicite, nous analysons son code decompile avec cutter, qui se revele tres simple: 
+
+![image](https://user-images.githubusercontent.com/25014717/89713095-9d432800-d995-11ea-9174-1d68727a0510.png)
+
+Nous avons un buffer dans lequel un strcpy ecrit, ce qui est une vulnerabilite nous permetant potentiellement d'executer du code arbitraire.
+La premiere chose dont nous avons besoin est de recuperer le code que nous voulons
+executer. Il est disponible a l'adresse suivante:
+
+[http://shell-storm.org/shellcode/files/shellcode-752.php](http://shell-storm.org/shellcode/files/shellcode-752.php)
+
+Apres avoir teste que ce shellcode lance bien sh:
+
+![Capture d’écran 2020-08-08 à 19 51 09](https://user-images.githubusercontent.com/25014717/89716820-9970cf00-d9b0-11ea-93d2-3f4698d33159.png)
+
+Nous devons le charger en memoire pour le faire executer par le binaire. Pour ce
+faire, nous allons remplacer la valeur du pointeur de retour de notre main par une adresse
+de notre choix, dans laquelle se trouvera notre shellcode. L'adresse contenue
+dans le frame pointer est normalement l'adresse que le pointeur d'execution
+utilise pour revenir a la fonction appelant. 
+
+Dans un premier temps, nous allons charger notre shellcode dans l'environement
+en convertissant notre string en binaire. Dans cette variable, nous aurons notre
+shellcode, precede d'instructions
+[NOP](https://en.wikipedia.org/wiki/NOP_(code)), pour nous donner une certaine marge de
+maneuvre. En effet, il est difficile de savoir exactement a l'execution
+l'adresse dans laquelle notre variable d'environement sera place. Nous prendrons
+une marge de maneuvre assez large, de 200 octets:
+
+![Capture d’écran 2020-08-09 à 00 09 14](https://user-images.githubusercontent.com/25014717/89720640-9a1b5c80-d9d4-11ea-8ebe-f0600eb41681.png)
+
+Nous avons donc notre code dans notre environnement, pret a etre lance. Chaque
+programme execute charge l'environnement dans lequel il est lance, nous sommes donc
+certains d'avoir acces a notre code. Il nous faut maintenant determiner l'adresse a
+laquelle se trouve celui ci a l'aide de gdb:
+
+![Capture d’écran 2020-08-09 à 00 11 18](https://user-images.githubusercontent.com/25014717/89720659-e4044280-d9d4-11ea-99e7-8d58349621f4.png)
+
+C'est parce que l'adresse ainsi obtenue est potentiellement differente de celle
+qui sera assignee lors de l'execution en dehors de gdb que nous avons besoin de
+notre marge d'erreur de 200 bytes. Nous devons maintenant calculer l'adresse de
+retour, pour que cette adresse soit approximativement dans notre champs de NOP.
+Nous voulons faire pointer le pointeur de retour vers le millieu de notre
+variable d'environnement:
+
+![Capture d’écran 2020-08-09 à 00 15 18](https://user-images.githubusercontent.com/25014717/89720694-6e4ca680-d9d5-11ea-9c3b-a7df4648563f.png)
+
+Nous convertissons ce resultat en little-endian, pour enfin remplir le buffer de
+notre binaire a exploiter et remplacer l'adresse de son frame pointer. Et
+obtenir ainsi notre shell root.
+
+![Capture d’écran 2020-08-09 à 00 20 28](https://user-images.githubusercontent.com/25014717/89720769-2ed28a00-d9d6-11ea-92ca-0d604dadac20.png)
+
