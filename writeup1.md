@@ -29,8 +29,6 @@ $ nmap -p- -sS -sC -sV 192.168.42.101
 `192.168.42.101` : notre cible.
 
 
-![image](https://user-images.githubusercontent.com/29956389/89550647-2decfd00-d80a-11ea-869c-0a2cb4404599.png)
-
 On observe que grâce a l'exécution des script par défault, qu'un acces anonyme au server FTP n'est pas possible, il nous faudra des credentials pour y acceder.
 
 ![ftp](https://user-images.githubusercontent.com/29956389/67638171-13ccd880-f8e2-11e9-8146-c490dc6c0017.png)
@@ -85,7 +83,7 @@ Par contre, en https on accède a `/forum/`qui se décline en `/forum/images/` `
 
 ## Recherche sur le forum
 
-Apres quelque minutes sur le forum j'observe plusieurs choses, une liste d'utilisateurs enregistré sur le site, et que le forum est probablement construit sur le framework `my little forum`:
+Apres quelque minutes sur le forum on observe plusieurs choses: une liste d'utilisateurs enregistré sur le site, et que le forum est probablement construit sur le framework `my little forum`:
 
 ![users](https://user-images.githubusercontent.com/29956389/67638517-63f96a00-f8e5-11e9-9fed-9a3fe0e5a30e.png)
 
@@ -102,7 +100,7 @@ Et ca marche:
 
 ![profile](https://user-images.githubusercontent.com/29956389/67638710-116d7d00-f8e8-11e9-8ca7-f30dd2510cbd.png)
 # Webmail
-On note l'adresse mail qui nous est montré ici et on va directement l'essayer sur la page webmail, avec le meme mot de passe:
+On note l'adresse mail qui nous est montré ci-dessus et on va directement l'essayer sur la page webmail, avec le meme mot de passe:
 
 ![mailcon](https://user-images.githubusercontent.com/29956389/67638719-26e2a700-f8e8-11e9-8d2c-e10b1713dbf0.png)
 
@@ -112,7 +110,7 @@ Cela marche a nouveau et on obtient apparement un login root pour la base de don
 
 # PhpMyAdmin
 
-On accede donc a phpMyAdmin, et on essaye de se connecter avec ces creedentials, et on arrive sur la page d'acceuil:
+On accede donc a phpMyAdmin, on essaye de se connecter avec ces credentials, et on arrive sur la page d'acceuil:
 
 ![image](https://user-images.githubusercontent.com/29956389/89552437-6d1c4d80-d80c-11ea-8e53-907324c24552.png)
 
