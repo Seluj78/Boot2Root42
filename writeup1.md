@@ -110,11 +110,11 @@ Cela marche a nouveau et on obtient apparement un login root pour la base de don
 
 # PhpMyAdmin
 
-On accede donc a phpMyAdmin, on essaye de se connecter avec ces credentials, et on arrive sur la page d'acceuil:
+On accede donc a phpMyAdmin, on essaye de se connecter avec ces credentials, et on arrive sur la page d'accueil:
 
 ![image](https://user-images.githubusercontent.com/29956389/89552437-6d1c4d80-d80c-11ea-8e53-907324c24552.png)
 
-On y voit une base de donnée apellé forum_db, et en la selectionant, on peut y executer une commande SQL.
+On y voit une base de donnée apellé `forum_db`, et en la selectionant, on peut y executer une commande SQL.
 
 Nous allons l'utiliser pour injecter un script. Reste plus qu'a savoir ou le placer.
 
